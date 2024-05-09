@@ -5,6 +5,8 @@ import { TCharacteristics, TTrain } from "../../utils/types";
 import SubmitButton from "../ui/SubmitButton/SubmitButton";
 import TableRow from "../TableRow/TableRow";
 
+// можно было бы реализовать таблицу библиотеками, но с таким функционалом без них все даже управляемее и проще
+
 type TProps = {
   saveChanges: (item: TTrain | null) => void;
   isValid: boolean;

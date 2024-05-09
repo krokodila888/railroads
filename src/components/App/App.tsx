@@ -27,13 +27,6 @@ const App: FC = () => {
     });
   }, []);
 
-  useEffect(() => {
-    if (currentTrain) {
-      const aaa = currentTrain.characteristics;
-      setRowsToChange(aaa);
-    }
-  }, [currentTrain]);
-
   // стартовые данные идут в redux
   // данные о первом выбранном поезде выставляются сразу: тут и пользовательская подсказка, и более юзерфрендли статичная верстка
   useEffect(() => {
@@ -43,8 +36,16 @@ const App: FC = () => {
     }
   }, [trains]);
 
-  // по клику на кнопку сортированные данные выводятся в консоль.
-  // в техзадании ничего не было про сохранение пользовательских данных, но пусть оно будет тут
+  // характеристики выбранного поезда для изменения с последующей отпрвкой в стор
+  useEffect(() => {
+    if (currentTrain) {
+      const currentCharacteristics = currentTrain.characteristics;
+      setRowsToChange(currentCharacteristics);
+    }
+  }, [currentTrain]);
+
+  // по клику на кнопку сортированные данные выводятся в консоль (с учетом валидных пользовательских даннных в рамках развития идеи из брифа).
+  // в техзадании ничего не было про сохранение пользовательских данных, но пусть они уйдут в хранилище, а то зачем все это было
   function saveChanges(item: TTrain | null) {
     if (item && rowsToChange && isValid) {
       dispatch(
