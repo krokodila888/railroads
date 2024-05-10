@@ -14,12 +14,12 @@ const TrainsTable: FC<TProps> = ({ handleTrainClick }) => {
 
   return (
     <>
-      <table className={styles.main}>
-        <caption className={styles.main__title}>Поезда</caption>
-        <thead className={styles.main__caption}>
+      <table className={styles.trains}>
+        <caption className={styles.trains__title}>Поезда</caption>
+        <thead className={styles.trains__caption}>
           <tr>
-            <th className={styles.main__td}>Название</th>
-            <th className={styles.main__td}>Описание</th>
+            <th className={styles.trains__td}>Название</th>
+            <th className={styles.trains__td}>Описание</th>
           </tr>
         </thead>
         <tbody>
@@ -31,15 +31,15 @@ const TrainsTable: FC<TProps> = ({ handleTrainClick }) => {
                 key={i}
                 className={
                   item.name === currentTrain?.name
-                    ? styles.main__tr1
-                    : styles.main__tr
+                    ? styles.trains__tr_chosen
+                    : styles.trains__tr
                 }
                 onClick={() => {
                   handleTrainClick(item);
                 }}
               >
-                <td className={styles.main__td}>{item.name}</td>
-                <td className={styles.main__td}>{item.description}</td>
+                <td className={styles.trains__td}>{item.name}</td>
+                <td className={styles.trains__td}>{item.description}</td>
               </tr>
             ))}
         </tbody>

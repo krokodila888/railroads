@@ -40,7 +40,7 @@ const CurrentTrain: FC<TProps> = ({
             <th className={styles.train__captiontd}>Скорость (км/ч)</th>
           </tr>
         </thead>
-        <tbody className={styles.train__tbody}>
+        <tbody>
           {currentTrain &&
             currentTrain.characteristics.map(
               (item: TCharacteristics, i: number) => (

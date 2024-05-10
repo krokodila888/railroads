@@ -1,0 +1,47 @@
+@import url(../vendor/Railroad/stylesheet.scss);
+
+$font-sans: "Raleway", "Inter", sans-serif;
+$color-background: #fff;
+$color-footer-border: #808080;
+$color-button-topic: #f8f9e7;
+$color-button-training: #f4f4f4;
+$color-button-hovered: #61fff4;
+$color-input: #f4f4f4;
+$color-input-correct: #d3ffb5;
+$color-font-base: #333;
+$color-font-darkgrey: #434343;
+$color-font-grey: #a0a0a0;
+$color-font-white: #fff;
+$color-border-grey: #efefef;
+$color-border-input: #e4e3de;
+$color-background-card: #ebecde;
+
+@mixin hovered {
+  opacity: 0.5;
+  cursor: pointer;
+  transition: 1s;
+}
+
+@mixin column {
+  display: flex;
+  flex-direction: column;
+}
+
+@mixin row {
+  display: flex;
+  flex-direction: row;
+}
+
+/*@mixin font($font-size, $line-size, $font-weight) {
+  font-family: $font-sans;
+  font-size: $font-size;
+  line-height: $line-size;
+  font-weight: $font-weight;
+}*/
+
+@mixin font {
+  font-family: $font-sans;
+  font-size: 18px;
+  line-height: 2;
+  font-weight: 500;
+}
