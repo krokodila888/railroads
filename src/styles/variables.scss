@@ -1,24 +1,24 @@
-@import url(../vendor/Railroad/stylesheet.scss);
+@import url("../vendor/Railroad/stylesheet.scss");
 
 $font-sans: "Raleway", "Inter", sans-serif;
-$color-background: #fff;
+$color-background: #ffffff;
 $color-footer-border: #808080;
 $color-button-topic: #f8f9e7;
 $color-button-training: #f4f4f4;
 $color-button-hovered: #61fff4;
 $color-input: #f4f4f4;
 $color-input-correct: #d3ffb5;
-$color-font-base: #333;
+$color-font-base: #333333;
 $color-font-darkgrey: #434343;
 $color-font-grey: #a0a0a0;
-$color-font-white: #fff;
+$color-font-white: #ffffff;
 $color-border-grey: #efefef;
 $color-border-input: #e4e3de;
 $color-background-card: #ebecde;
 
-@mixin hovered {
-  opacity: 0.5;
+/* @mixin hovered {
   cursor: pointer;
+  opacity: 0.5;
   transition: 1s;
 }
 
@@ -32,16 +32,16 @@ $color-background-card: #ebecde;
   flex-direction: row;
 }
 
-/*@mixin font($font-size, $line-size, $font-weight) {
+@mixin font($font-size, $line-size, $font-weight) {
   font-family: $font-sans;
   font-size: $font-size;
   line-height: $line-size;
   font-weight: $font-weight;
-}*/
+} 
 
 @mixin font {
-  font-family: $font-sans;
-  font-size: 18px;
-  line-height: 2;
   font-weight: 500;
-}
+  font-size: 18px;
+  font-family: $font-sans;
+  line-height: 2;
+} */

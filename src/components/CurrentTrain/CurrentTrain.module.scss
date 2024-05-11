@@ -1,4 +1,4 @@
-@import url(../../vendor/Railroad/stylesheet.scss);
+@import url("../../vendor/Railroad/stylesheet.scss");
 
 .train {
   display: flex;
@@ -15,12 +15,11 @@
     padding-left: 40px;
     color: black;
     font-weight: bold;
+    font-size: 22px;
+    font-family: "Raleway", "Inter", sans-serif;
     line-height: 2;
     text-align: left;
     background-color: white;
-    font-family: "Raleway", "Inter", sans-serif;
-    font-size: 22px;
-    font-weight: bold;
   }
 
   &__tr {
@@ -41,10 +40,10 @@
 
     & td {
       min-width: 200px;
+      height: 48px;
       padding-left: 10px;
       text-align: center;
       -webkit-border-vertical-spacing: 0;
-      height: 48px;
     }
 
     & tr {
@@ -71,10 +70,10 @@
   &__captiontd {
     min-width: 200px;
     padding-left: 10px;
-    border-bottom: 1px solid rgb(202 202 202);
-    font-family: "Raleway", "Inter", sans-serif;
-    font-size: 18px;
     font-weight: bold;
+    font-size: 18px;
+    font-family: "Raleway", "Inter", sans-serif;
+    border-bottom: 1px solid rgb(202 202 202);
 
     &:nth-child(-n + 3) {
       border-bottom: none;

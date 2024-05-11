@@ -1,16 +1,16 @@
-@import url(../../../vendor/Railroad/stylesheet.scss);
+@import url("../../../vendor/Railroad/stylesheet.scss");
 
 .button {
   align-self: center;
   min-width: 240px;
   height: 48px;
-  border-radius: 4px;
-  font-family: "Raleway", "Inter", sans-serif;
-  font-size: 20px;
   font-weight: normal;
+  font-size: 20px;
+  font-family: "Raleway", "Inter", sans-serif;
+  border-radius: 4px;
 
   &:hover {
-   background-color: #ffffff;
+    background-color: #ffffff;
     border-radius: 4px;
     cursor: pointer;
     transform: 0.5s;
@@ -22,9 +22,9 @@
   align-self: center;
   min-width: 240px;
   height: 48px;
+  font-weight: normal;
+  font-size: 20px;
+  font-family: "Raleway", "Inter", sans-serif;
   background-color: #f5f5f5;
   border-radius: 4px;
-  font-family: "Raleway", "Inter", sans-serif;
-  font-size: 20px;
-  font-weight: normal;
 }

@@ -53,34 +53,49 @@ const TableRow: FC<TProps> = ({
   // тут валидация данных для кнопки и стилей. Валидные данные идут в стейт, чтобы при изменении параметров уйти в redux
   useEffect(() => {
     if (
-      form &&
-      form.engineAmperage &&
-      form.force &&
-      form.speed &&
-      form.engineAmperage > 0 &&
-      form.force > 0 &&
-      form.speed >= 0 &&
-      form.speed % 1 === 0 &&
-      form.engineAmperage % 1 === 0 &&
-      typeof form.engineAmperage !== "string" &&
-      typeof form.force !== "string" &&
-      typeof form.speed !== "string"
+      form !== null &&
+      form.engineAmperage !== null &&
+      form.force !== null &&
+      form.speed !== null
     ) {
-      setIsValid(true);
-      const res = rowsToChange?.map((item, num) => {
-        if (num === i) {
-          return {
-            engineAmperage: Number(form.engineAmperage),
-            force: Number(form.force),
-            speed: Number(form.speed),
-          };
-        } else return item;
-      });
-      if (res !== undefined) {
-        setRowsToChange(res);
+      if (
+        form.engineAmperage > 0 &&
+        form.force > 0 &&
+        form.speed >= 0 &&
+        form.speed % 1 === 0 &&
+        form.engineAmperage % 1 === 0 &&
+        typeof form.engineAmperage !== "string" &&
+        typeof form.force !== "string" &&
+        typeof form.speed !== "string"
+      ) {
+        console.log("ok!!!");
+        console.log(
+          form.engineAmperage > 0 &&
+            form.force > 0 &&
+            form.speed >= 0 &&
+            form.speed % 1 === 0 &&
+            form.engineAmperage % 1 === 0 &&
+            typeof form.engineAmperage !== "string" &&
+            typeof form.force !== "string" &&
+            typeof form.speed !== "string"
+        );
+        setIsValid(true);
+        const res = rowsToChange?.map((item, num) => {
+          if (num === i) {
+            return {
+              engineAmperage: Number(form.engineAmperage),
+              force: Number(form.force),
+              speed: Number(form.speed),
+            };
+          } else return item;
+        });
+        if (res !== undefined) {
+          setRowsToChange(res);
+          console.log(rowsToChange);
+        }
+      } else {
+        setIsValid(false);
       }
-    } else {
-      setIsValid(false);
     }
   }, [form]);
 

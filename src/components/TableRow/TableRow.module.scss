@@ -1,16 +1,15 @@
-@import url(../../vendor/Railroad/stylesheet.scss);
+@import url("../../vendor/Railroad/stylesheet.scss");
 
 .row {
-
   &__input {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
+    font-weight: normal;
+    font-size: 18px;
+    font-family: "Inter", sans-serif;
     text-align: center;
     border: none;
-    font-family: "Inter", sans-serif;
-    font-size: 18px;
-    font-weight: normal;
 
     &::-webkit-outer-spin-button {
       margin: 0;
@@ -40,12 +39,12 @@
     box-sizing: border-box;
     width: 100%;
     height: 100%;
+    font-weight: normal;
+    font-size: 18px;
+    font-family: "Inter", sans-serif;
     text-align: center;
     background-color: rgb(252 150 155);
     border: none;
-    font-family: "Inter", sans-serif;
-    font-size: 18px;
-    font-weight: normal;
 
     &::-webkit-outer-spin-button {
       margin: 0;
@@ -73,12 +72,11 @@
 
   &__tr {
     min-width: 160px;
-    height: 40px;
-    border-collapse: collapse;
-    font-family: "Inter", sans-serif;
-    font-size: 18px;
-    font-weight: normal;
     height: 48px;
+    font-weight: normal;
+    font-size: 18px;
+    font-family: "Inter", sans-serif;
+    border-collapse: collapse;
   }
 
   &__td {
