@@ -13,10 +13,10 @@ import { TCharacteristics, TTrain } from "../../utils/types";
 
 const App: FC = () => {
   const [trains, setTrains] = useState<TTrain[] | null>(null);
-  const [isValid, setIsValid] = useState(false);
   const [rowsToChange, setRowsToChange] = useState<TCharacteristics[] | null>(
     null
   );
+  const [isValid, setIsValid] = useState<string[]>([]);
   const dispatch = useAppDispatch();
   const { currentTrain } = useAppSelector((state) => state.trainsReducer);
 
@@ -41,13 +41,18 @@ const App: FC = () => {
     if (currentTrain) {
       const currentCharacteristics = currentTrain.characteristics;
       setRowsToChange(currentCharacteristics);
+      setIsValid(
+        currentTrain.characteristics.map(() => {
+          return "isValid";
+        })
+      );
     }
   }, [currentTrain]);
 
   // по клику на кнопку сортированные данные выводятся в консоль (с учетом валидных пользовательских даннных в рамках развития идеи из брифа).
   // в техзадании ничего не было про сохранение пользовательских данных, но пусть они уйдут в хранилище, а то зачем все это было
   function saveChanges(item: TTrain | null) {
-    if (item && rowsToChange && isValid) {
+    if (item && rowsToChange && !isValid.includes("isInvalid")) {
       dispatch(
         editTrain({
           name: item.name,
@@ -79,10 +84,10 @@ const App: FC = () => {
             <Main
               saveChanges={saveChanges}
               handleTrainClick={handleTrainClick}
-              isValid={isValid}
-              setIsValid={setIsValid}
               setRowsToChange={setRowsToChange}
               rowsToChange={rowsToChange}
+              isValid={isValid}
+              setIsValid={setIsValid}
             />
           }
         ></Route>

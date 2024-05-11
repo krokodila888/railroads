@@ -5,6 +5,7 @@ import { TFormRow, TTableRowProps } from "../../utils/types";
 
 const TableRow: FC<TTableRowProps> = ({
   item,
+  isValid,
   setIsValid,
   setRowsToChange,
   i,
@@ -23,7 +24,8 @@ const TableRow: FC<TTableRowProps> = ({
     if (currentTrain) {
       setValue({
         engineAmperage: item.engineAmperage,
-        force: item.force,
+        // читала, что js не видит запятую как десятичный разделитель, но по техзаданию должна отображаться именно запятая: для удобства преобразуем число в строку и заменяем разделитель. При отпрвке данных на сервер или при работе с ними можно легко изменить разделитель обратно - как это приходится делать при проверках
+        force: ("" + item.force).replace(/\./, ","),
         speed: item.speed,
       });
     }
@@ -40,20 +42,26 @@ const TableRow: FC<TTableRowProps> = ({
       if (
         form.engineAmperage > 0 &&
         form.force !== undefined &&
-        Number(form.force) > 0 &&
+        Number(form.force.replace(/\,/, ".")) > 0 &&
         form.speed >= 0 &&
         form.speed % 1 === 0 &&
         form.engineAmperage % 1 === 0 &&
         typeof form.engineAmperage !== "string" &&
         typeof form.speed !== "string" &&
-        !/^\./.test("" + form.force)
+        !/^\,/.test("" + form.force)
       ) {
-        setIsValid(true);
+        setIsValid(
+          isValid.map((item, num) => {
+            if (num === i) {
+              return "isValid";
+            } else return item;
+          })
+        );
         const res = rowsToChange?.map((item, num) => {
           if (num === i) {
             return {
               engineAmperage: Number(form.engineAmperage),
-              force: Number(form.force),
+              force: Number(form.force?.replace(/\,/, ".")),
               speed: Number(form.speed),
             };
           } else return item;
@@ -62,7 +70,13 @@ const TableRow: FC<TTableRowProps> = ({
           setRowsToChange(res);
         }
       } else {
-        setIsValid(false);
+        setIsValid(
+          isValid.map((item, num) => {
+            if (num === i) {
+              return "isInvalid";
+            } else return item;
+          })
+        );
       }
     }
   }, [form]);
@@ -86,14 +100,14 @@ const TableRow: FC<TTableRowProps> = ({
       e.target.value
     ) {
       // тут обработка случаев с избыточными нулями в начале строки
-      let res = e.target.value.match(/[0-9\.]/gi)?.join("");
-      if (res !== undefined && !res?.includes(".") && /^0+/.test(res)) {
+      let res = e.target.value.match(/[0-9\,]/gi)?.join("");
+      if (res !== undefined && !res?.includes(",") && /^0+/.test(res)) {
         res = res.replace(/^0+/, "0");
       }
-      if (res !== undefined && res?.includes(".") && /^0+\./.test(res)) {
-        res = res.replace(/^0+\./, "0.");
+      if (res !== undefined && res?.includes(",") && /^0+\,/.test(res)) {
+        res = res.replace(/^0+\,/, "0,");
       }
-      if (res !== undefined && res?.includes(".") && /^0+[1-9]/.test(res)) {
+      if (res !== undefined && res?.includes(",") && /^0+[1-9]/.test(res)) {
         res = res.replace(/^0+/, "");
       }
       if (res) {
@@ -120,10 +134,10 @@ const TableRow: FC<TTableRowProps> = ({
     ) {
       setValue({
         ...form,
-        force: 0,
+        force: "0",
       });
     }
-    if (("" + form.force).includes(".") && e.key === ".") {
+    if (("" + form.force).includes(",") && e.key === ",") {
       e.preventDefault();
     }
   };
@@ -158,8 +172,8 @@ const TableRow: FC<TTableRowProps> = ({
           className={
             form.force !== null &&
             form.force !== undefined &&
-            Number(form.force) > 0 &&
-            !/^\./.test("" + form.force)
+            Number(form.force.replace(/\,/, ".")) > 0 &&
+            !/^\,/.test("" + form.force)
               ? styles.row__input
               : styles.row__input_incorrect
           }

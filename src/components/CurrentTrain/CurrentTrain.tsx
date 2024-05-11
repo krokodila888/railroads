@@ -9,10 +9,10 @@ import TableRow from "../TableRow/TableRow";
 
 const CurrentTrain: FC<TCurrentTrainProps> = ({
   saveChanges,
-  isValid,
-  setIsValid,
   setRowsToChange,
   rowsToChange,
+  isValid,
+  setIsValid,
 }) => {
   const { currentTrain } = useAppSelector((state) => state.trainsReducer);
 
@@ -40,9 +40,10 @@ const CurrentTrain: FC<TCurrentTrainProps> = ({
                   key={i}
                   i={i}
                   item={item}
-                  setIsValid={setIsValid}
                   setRowsToChange={setRowsToChange}
                   rowsToChange={rowsToChange}
+                  isValid={isValid}
+                  setIsValid={setIsValid}
                 />
               )
             )}
@@ -50,7 +51,7 @@ const CurrentTrain: FC<TCurrentTrainProps> = ({
       </table>
       <SubmitButton
         onClick={saveChanges}
-        disabled={!isValid}
+        disabled={isValid.includes("isInvalid")}
         text="Отправить данные"
         item={currentTrain}
       />
