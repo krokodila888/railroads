@@ -1,21 +1,13 @@
-import { Dispatch, FC, SetStateAction } from "react";
+import { FC } from "react";
 import styles from "./CurrentTrain.module.scss";
 import { useAppSelector } from "../../services/hooks";
-import { TCharacteristics, TTrain } from "../../utils/types";
+import { TCharacteristics, TCurrentTrainProps } from "../../utils/types";
 import SubmitButton from "../ui/SubmitButton/SubmitButton";
 import TableRow from "../TableRow/TableRow";
 
 // можно было бы реализовать таблицу библиотеками, но с таким функционалом без них все даже управляемее и проще
 
-type TProps = {
-  saveChanges: (item: TTrain | null) => void;
-  isValid: boolean;
-  setIsValid: (arg0: boolean) => void;
-  setRowsToChange: Dispatch<SetStateAction<TCharacteristics[] | null>>;
-  rowsToChange: TCharacteristics[] | null;
-};
-
-const CurrentTrain: FC<TProps> = ({
+const CurrentTrain: FC<TCurrentTrainProps> = ({
   saveChanges,
   isValid,
   setIsValid,

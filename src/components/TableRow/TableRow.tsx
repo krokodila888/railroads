@@ -1,30 +1,9 @@
-import {
-  ChangeEvent,
-  Dispatch,
-  FC,
-  SetStateAction,
-  useEffect,
-  useState,
-} from "react";
+import { ChangeEvent, FC, useEffect, useState } from "react";
 import styles from "./TableRow.module.scss";
 import { useAppSelector } from "../../services/hooks";
-import { TCharacteristics } from "../../utils/types";
+import { TFormRow, TTableRowProps } from "../../utils/types";
 
-type TFormRow = {
-  engineAmperage: number | null;
-  force: number | null;
-  speed: number | null;
-};
-
-type TProps = {
-  item: TCharacteristics;
-  setIsValid: (arg0: boolean) => void;
-  setRowsToChange: Dispatch<SetStateAction<TCharacteristics[] | null>>;
-  i: number;
-  rowsToChange: TCharacteristics[] | null;
-};
-
-const TableRow: FC<TProps> = ({
+const TableRow: FC<TTableRowProps> = ({
   item,
   setIsValid,
   setRowsToChange,
@@ -60,25 +39,15 @@ const TableRow: FC<TProps> = ({
     ) {
       if (
         form.engineAmperage > 0 &&
-        form.force > 0 &&
+        form.force !== undefined &&
+        Number(form.force) > 0 &&
         form.speed >= 0 &&
         form.speed % 1 === 0 &&
         form.engineAmperage % 1 === 0 &&
         typeof form.engineAmperage !== "string" &&
-        typeof form.force !== "string" &&
-        typeof form.speed !== "string"
+        typeof form.speed !== "string" &&
+        !/^\./.test("" + form.force)
       ) {
-        console.log("ok!!!");
-        console.log(
-          form.engineAmperage > 0 &&
-            form.force > 0 &&
-            form.speed >= 0 &&
-            form.speed % 1 === 0 &&
-            form.engineAmperage % 1 === 0 &&
-            typeof form.engineAmperage !== "string" &&
-            typeof form.force !== "string" &&
-            typeof form.speed !== "string"
-        );
         setIsValid(true);
         const res = rowsToChange?.map((item, num) => {
           if (num === i) {
@@ -91,7 +60,6 @@ const TableRow: FC<TProps> = ({
         });
         if (res !== undefined) {
           setRowsToChange(res);
-          console.log(rowsToChange);
         }
       } else {
         setIsValid(false);
@@ -109,22 +77,52 @@ const TableRow: FC<TProps> = ({
         [e.target.name]: Number(e.target.value.replace(/[^0-9\d]/gi, "")),
       });
     }
+    // здесь валидация поля с дробью. Пользователь лишен возможности сделать большую часть ошибок (ввести в поле буквы и некорректные символы), но не написать верно (например, возможен первый ноль в начале строки, но не несколько подряд без разделительной запятой (одной на поле, вторая блокируется)
     if (
       e.target.name === "force" &&
       e !== null &&
       e.target !== null &&
       e.target.value
     ) {
-      setValue({
-        ...form,
-        force: Number(e.target.value),
-      });
+      let res = e.target.value.match(/[0-9\.]/gi)?.join("");
+      if (res !== undefined && !res?.includes(".") && /^0+/.test(res)) {
+        res = res.replace(/^0+/, "0");
+      }
+      if (res !== undefined && res?.includes(".") && /^0+\./.test(res)) {
+        res = res.replace(/^0+\./, "0.");
+      }
+      if (res !== undefined && res?.includes(".") && /^0+[1-9]/.test(res)) {
+        res = res.replace(/^0+/, "");
+      }
+      if (res) {
+        setValue({
+          ...form,
+          force: res,
+        });
+      }
     }
     if (e.target.name === "engineAmperage") {
       setValue({
         ...form,
         [e.target.name]: Number(e.target.value.replace(/[^0-9\d]/gi, "")),
       });
+    }
+  };
+
+  // тут убирается последний знак инпута с типом number при стирании с клавиатуры
+  // можно решить это и по-другому, через более сложное регулярное выражение и type="text"
+  const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (
+      ("" + form.force).length === 1 &&
+      (e.key === "Backspace" || e.key === "Delete")
+    ) {
+      setValue({
+        ...form,
+        force: 0,
+      });
+    }
+    if (("" + form.force).includes(".") && e.key === ".") {
+      e.preventDefault();
     }
   };
 
@@ -153,12 +151,14 @@ const TableRow: FC<TProps> = ({
           value={form.force !== null ? form.force : "Нет значения"}
           name="force"
           onChange={onChange}
-          type="number"
-          pattern="/[^0-9\d]/gi"
+          onKeyDown={onKeyDown}
+          type="text"
+          /*pattern="/[^0-9\d]/gi"*/
           className={
             form.force !== null &&
-            form.force > 0 &&
-            typeof form.force !== "string"
+            form.force !== undefined &&
+            Number(form.force) > 0 &&
+            !/^\./.test("" + form.force)
               ? styles.row__input
               : styles.row__input_incorrect
           }

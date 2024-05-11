@@ -1,15 +1,8 @@
 import { FC } from "react";
 import styles from "./SubmitButton.module.scss";
-import { TTrain } from "../../../utils/types";
+import { TButtonProps } from "../../../utils/types";
 
-type TProps = {
-  onClick: (item: TTrain | null) => void;
-  text: string;
-  disabled: boolean;
-  item: TTrain | null;
-};
-
-const SubmitButton: FC<TProps> = (props: TProps) => {
+const SubmitButton: FC<TButtonProps> = (props: TButtonProps) => {
   const { onClick, text, disabled, item } = props;
 
   return (

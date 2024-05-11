@@ -1,13 +1,9 @@
 import { FC } from "react";
 import styles from "./TrainsTable.module.scss";
 import { useAppSelector } from "../../services/hooks";
-import { TTrain } from "../../utils/types";
+import { TTrain, TTrainsTableProps } from "../../utils/types";
 
-type TProps = {
-  handleTrainClick: (item: TTrain) => void;
-};
-
-const TrainsTable: FC<TProps> = ({ handleTrainClick }) => {
+const TrainsTable: FC<TTrainsTableProps> = ({ handleTrainClick }) => {
   const { trains, currentTrain } = useAppSelector(
     (state) => state.trainsReducer
   );
