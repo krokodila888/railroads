@@ -1,5 +1,10 @@
 # Тестовое задание - приложение для вывода и редактирования данных
 
+First you need to run
+
+### `npm install`
+
+to install all staff to make it work.
 
 ## Available Scripts
 
@@ -22,6 +27,5 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
 
 ## Есть и еще команды, но менее важные)

@@ -1,13 +1,11 @@
-@import url("../../vendor/Railroad/stylesheet.scss");
+@import url("../../styles/variables");
 
 .row {
   &__input {
+    @include text;
     box-sizing: border-box;
     width: calc(100% - 4px);
     height: calc(100% - 4px);
-    font-weight: normal;
-    font-size: 18px;
-    font-family: "Inter", sans-serif;
     text-align: center;
     border: none;
 
@@ -23,7 +21,7 @@
 
     &:hover {
       padding: 0;
-      background-color: #ebebeb;
+      background-color: $color-input-hovered;
       border-radius: 4px;
       transform: 0.5s;
       opacity: 0.5;
@@ -31,20 +29,18 @@
 
     &:focus-visible {
       padding: 0;
-      background-color: #ebebeb;
-      border: 1px solid grey;
+      background-color: $color-input-hovered;
+      border: 1px solid $color-input-border;
     }
   }
 
   &__input_incorrect {
+    @include text;
     box-sizing: border-box;
     width: calc(100% - 4px);
     height: calc(100% - 4px);
-    font-weight: normal;
-    font-size: 18px;
-    font-family: "Inter", sans-serif;
     text-align: center;
-    background-color: rgb(252 150 155);
+    background-color: $color-input-incorrect;
     border: none;
 
     &::-webkit-outer-spin-button {
@@ -59,7 +55,7 @@
 
     &:hover {
       padding: 0;
-      background-color: #ebebeb;
+      background-color: $color-input-hovered;
       border-radius: 4px;
       transform: 0.5s;
       opacity: 0.5;
@@ -67,17 +63,15 @@
 
     &:focus-visible {
       padding: 0;
-      background-color: #ebebeb;
-      border: 1px solid grey;
+      background-color: $color-input-hovered;
+      border: 1px solid $color-input-border;
     }
   }
 
   &__tr {
+    @include text;
     min-width: 160px;
     height: 48px;
-    font-weight: normal;
-    font-size: 18px;
-    font-family: "Inter", sans-serif;
     border-collapse: collapse;
   }
 
@@ -85,6 +79,6 @@
     box-sizing: border-box;
     min-width: 200px;
     text-align: center;
-    border-bottom: 1px solid #f5f5f5;
+    border-bottom: 1px solid $color-table-border;
   }
 }

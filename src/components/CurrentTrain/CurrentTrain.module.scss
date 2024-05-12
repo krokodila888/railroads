@@ -1,4 +1,4 @@
-@import url("../../vendor/Railroad/stylesheet.scss");
+@import url("../../styles/variables");
 
 .train {
   display: flex;
@@ -11,15 +11,11 @@
   border-radius: 4px;
 
   &__title {
+    @include title;
     padding-top: 20px;
     padding-left: 40px;
-    color: black;
-    font-weight: bold;
-    font-size: 22px;
-    font-family: "Raleway", "Inter", sans-serif;
-    line-height: 2;
     text-align: left;
-    background-color: white;
+    background-color: $color-title-background;
   }
 
   &__tr {
@@ -31,10 +27,10 @@
   &__caption {
     min-width: 160px;
     height: 48px;
-    color: grey;
+    color: $color-font-caption;
     line-height: 2;
     text-align: center;
-    background-color: #ebebeb;
+    background-color: $color-caption-background;
     border: none;
     border-radius: 4px;
 
@@ -47,7 +43,7 @@
     }
 
     & tr {
-      background-color: #ebebeb;
+      background-color: $color-caption-background;
       border: none;
       -webkit-border-vertical-spacing: 0;
     }
@@ -57,7 +53,7 @@
     box-sizing: border-box;
     height: fit-content;
     padding: 20px;
-    background-color: white;
+    background-color: $color-title-background;
     border: none;
     border-radius: 4px;
     -webkit-border-vertical-spacing: 0;
@@ -68,12 +64,10 @@
   }
 
   &__captiontd {
+    @include captiontd;
     min-width: 200px;
     padding-left: 10px;
-    font-weight: bold;
-    font-size: 18px;
-    font-family: "Raleway", "Inter", sans-serif;
-    border-bottom: 1px solid rgb(202 202 202);
+    border-bottom: 1px solid $color-table-border;
 
     &:nth-child(-n + 3) {
       border-bottom: none;

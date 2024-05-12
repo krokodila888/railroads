@@ -152,6 +152,7 @@ const TableRow: FC<TTableRowProps> = ({
           name="engineAmperage"
           onChange={onChange}
           type="text"
+          autoComplete="off"
           className={
             form.engineAmperage !== null &&
             form.engineAmperage > 0 &&
@@ -169,6 +170,7 @@ const TableRow: FC<TTableRowProps> = ({
           onChange={onChange}
           onKeyDown={onKeyDown}
           type="text"
+          autoComplete="off"
           className={
             form.force !== null &&
             form.force !== undefined &&
@@ -185,6 +187,7 @@ const TableRow: FC<TTableRowProps> = ({
           name="speed"
           onChange={onChange}
           type="text"
+          autoComplete="off"
           className={
             form.speed !== null &&
             form.speed >= 0 &&
