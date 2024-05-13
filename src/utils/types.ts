@@ -17,8 +17,6 @@ export type TMainProps = {
   handleTrainClick: (item: TTrain) => void;
   setRowsToChange: Dispatch<SetStateAction<TCharacteristics[] | null>>;
   rowsToChange: TCharacteristics[] | null;
-  isValid: string[];
-  setIsValid: Dispatch<SetStateAction<string[]>>;
 };
 
 export type TFormRow = {
@@ -32,8 +30,6 @@ export type TTableRowProps = {
   setRowsToChange: Dispatch<SetStateAction<TCharacteristics[] | null>>;
   i: number;
   rowsToChange: TCharacteristics[] | null;
-  setIsValid: Dispatch<SetStateAction<string[]>>;
-  isValid: string[];
 };
 
 export type TTrainsTableProps = {
@@ -43,7 +39,7 @@ export type TTrainsTableProps = {
 export type TButtonProps = {
   onClick: (item: TTrain | null) => void;
   text: string;
-  disabled: boolean;
+  disabled: boolean | undefined;
   item: TTrain | null;
 };
 
@@ -51,6 +47,9 @@ export type TCurrentTrainProps = {
   saveChanges: (item: TTrain | null) => void;
   setRowsToChange: Dispatch<SetStateAction<TCharacteristics[] | null>>;
   rowsToChange: TCharacteristics[] | null;
-  isValid: string[];
-  setIsValid: Dispatch<SetStateAction<string[]>>;
+};
+
+export type TValidationData = {
+  number: number;
+  status: string;
 };

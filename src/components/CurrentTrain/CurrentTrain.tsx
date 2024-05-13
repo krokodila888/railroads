@@ -11,10 +11,10 @@ const CurrentTrain: FC<TCurrentTrainProps> = ({
   saveChanges,
   setRowsToChange,
   rowsToChange,
-  isValid,
-  setIsValid,
 }) => {
-  const { currentTrain } = useAppSelector((state) => state.trainsReducer);
+  const { currentTrain, validity } = useAppSelector(
+    (state) => state.trainsReducer
+  );
 
   return (
     <div className={styles.train}>
@@ -42,8 +42,6 @@ const CurrentTrain: FC<TCurrentTrainProps> = ({
                   item={item}
                   setRowsToChange={setRowsToChange}
                   rowsToChange={rowsToChange}
-                  isValid={isValid}
-                  setIsValid={setIsValid}
                 />
               )
             )}
@@ -51,7 +49,7 @@ const CurrentTrain: FC<TCurrentTrainProps> = ({
       </table>
       <SubmitButton
         onClick={saveChanges}
-        disabled={isValid.includes("isInvalid")}
+        disabled={validity?.includes("isInvalid")}
         text="Отправить данные"
         item={currentTrain}
       />

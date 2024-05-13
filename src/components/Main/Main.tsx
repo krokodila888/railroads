@@ -8,8 +8,6 @@ const Main: FC<TMainProps> = ({
   handleTrainClick,
   setRowsToChange,
   rowsToChange,
-  isValid,
-  setIsValid,
 }) => {
   return (
     <>
@@ -18,8 +16,6 @@ const Main: FC<TMainProps> = ({
         saveChanges={saveChanges}
         setRowsToChange={setRowsToChange}
         rowsToChange={rowsToChange}
-        isValid={isValid}
-        setIsValid={setIsValid}
       />
     </>
   );

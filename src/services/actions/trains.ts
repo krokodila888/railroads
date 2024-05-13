@@ -4,11 +4,12 @@ import {
   GET_TRAINS_ACTION,
   GET_TRAINS_FAILED,
   GET_TRAINS_SUCCESS,
+  SET_VALIDITY,
+  EDIT_VALIDITY,
 } from "../../utils/constants";
 import { AppDispatch } from "../hooks";
 import { api } from "../../utils/Api";
-
-import { TTrain } from "../../utils/types";
+import { TTrain, TValidationData } from "../../utils/types";
 
 export interface ISetCurrentTrain {
   readonly type: typeof SET_CURRENT_TRAIN;
@@ -19,6 +20,26 @@ export interface IEditTrain {
   readonly type: typeof EDIT_DATA;
   readonly editedItem: TTrain;
 }
+
+export interface ISetValidity {
+  readonly type: typeof SET_VALIDITY;
+  readonly items: string[];
+}
+
+export interface IEditValidity {
+  readonly type: typeof EDIT_VALIDITY;
+  readonly number: number;
+  readonly status: string;
+}
+
+export type TTrainsActions =
+  | IGetTrainsAction
+  | IGetTrainsFailedAction
+  | IGetTrainsSuccessAction
+  | ISetCurrentTrain
+  | IEditTrain
+  | ISetValidity
+  | IEditValidity;
 
 export function setCurrentTrain(data: TTrain) {
   return {
@@ -34,6 +55,19 @@ export function editTrain(data: TTrain) {
   };
 }
 
+export function setValidity(data: string[]) {
+  return {
+    type: SET_VALIDITY,
+    items: data,
+  };
+}
+
+export const editValidity = (data: TValidationData): IEditValidity => ({
+  type: EDIT_VALIDITY,
+  number: data.number,
+  status: data.status,
+});
+
 export interface IGetTrainsAction {
   readonly type: typeof GET_TRAINS_ACTION;
 }
@@ -46,13 +80,6 @@ export interface IGetTrainsSuccessAction {
   readonly type: typeof GET_TRAINS_SUCCESS;
   readonly items: ReadonlyArray<TTrain>;
 }
-
-export type TTrainsActions =
-  | IGetTrainsAction
-  | IGetTrainsFailedAction
-  | IGetTrainsSuccessAction
-  | ISetCurrentTrain
-  | IEditTrain;
 
 export const getTrainsAction = (): IGetTrainsAction => ({
   type: GET_TRAINS_ACTION,

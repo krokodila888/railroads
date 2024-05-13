@@ -6,6 +6,7 @@ import {
   getTrains,
   setCurrentTrain,
   editTrain,
+  setValidity,
 } from "../../services/actions/trains";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { api } from "../../utils/Api";
@@ -16,9 +17,11 @@ const App: FC = () => {
   const [rowsToChange, setRowsToChange] = useState<TCharacteristics[] | null>(
     null
   );
-  const [isValid, setIsValid] = useState<string[]>([]);
+  //const [isValid, setIsValid] = useState<string[]>([]);
   const dispatch = useAppDispatch();
-  const { currentTrain } = useAppSelector((state) => state.trainsReducer);
+  const { currentTrain, validity } = useAppSelector(
+    (state) => state.trainsReducer
+  );
 
   // запрос с бекенда стартовых данных
   useEffect(() => {
@@ -33,6 +36,13 @@ const App: FC = () => {
     if (trains && trains.length !== 0) {
       dispatch(getTrains());
       dispatch(setCurrentTrain(trains[0]));
+      dispatch(
+        setValidity(
+          trains[0].characteristics.map(() => {
+            return "isValid";
+          })
+        )
+      );
     }
   }, [trains]);
 
@@ -41,18 +51,18 @@ const App: FC = () => {
     if (currentTrain) {
       const currentCharacteristics = currentTrain.characteristics;
       setRowsToChange(currentCharacteristics);
-      setIsValid(
+      /*setIsValid(
         currentTrain.characteristics.map(() => {
           return "isValid";
         })
-      );
+      );*/
     }
   }, [currentTrain]);
 
   // по клику на кнопку сортированные данные выводятся в консоль (с учетом валидных пользовательских даннных в рамках развития идеи из брифа).
   // в техзадании ничего не было про сохранение пользовательских данных, но пусть они уйдут в хранилище, а то зачем все это было
   function saveChanges(item: TTrain | null) {
-    if (item && rowsToChange && !isValid.includes("isInvalid")) {
+    if (item && rowsToChange && !validity?.includes("isInvalid")) {
       dispatch(
         editTrain({
           name: item.name,
@@ -73,6 +83,13 @@ const App: FC = () => {
   //данные о выбранном поезде отображаются по клику
   function handleTrainClick(item: TTrain) {
     dispatch(setCurrentTrain(item));
+    dispatch(
+      setValidity(
+        item.characteristics.map(() => {
+          return "isValid";
+        })
+      )
+    );
   }
 
   return (
@@ -86,8 +103,6 @@ const App: FC = () => {
               handleTrainClick={handleTrainClick}
               setRowsToChange={setRowsToChange}
               rowsToChange={rowsToChange}
-              isValid={isValid}
-              setIsValid={setIsValid}
             />
           }
         ></Route>
