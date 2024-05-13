@@ -69,26 +69,20 @@ export type TTrainsActions =
   | ISetNewData
   | IEditNewData;
 
-export function setCurrentTrain(data: TTrain) {
-  return {
-    type: SET_CURRENT_TRAIN,
-    item: data,
-  };
-}
+export const setCurrentTrain = (item: TTrain): ISetCurrentTrain => ({
+  type: SET_CURRENT_TRAIN,
+  item,
+});
 
-export function editTrain(data: TTrain) {
-  return {
-    type: EDIT_DATA,
-    editedItem: data,
-  };
-}
+export const editTrain = (editedItem: TTrain): IEditTrain => ({
+  type: EDIT_DATA,
+  editedItem,
+});
 
-export function setValidity(data: string[]) {
-  return {
-    type: SET_VALIDITY,
-    items: data,
-  };
-}
+export const setValidity = (items: string[]): ISetValidity => ({
+  type: SET_VALIDITY,
+  items,
+});
 
 export const editValidity = (data: TValidationData): IEditValidity => ({
   type: EDIT_VALIDITY,
@@ -96,12 +90,10 @@ export const editValidity = (data: TValidationData): IEditValidity => ({
   status: data.status,
 });
 
-export function setNewData(data: TCharacteristics[]) {
-  return {
-    type: SET_NEW_DATA,
-    items: data,
-  };
-}
+export const setNewData = (items: TCharacteristics[]): ISetNewData => ({
+  type: SET_NEW_DATA,
+  items,
+});
 
 export const editNewData = (
   number: number,
