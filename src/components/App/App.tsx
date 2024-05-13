@@ -17,7 +17,6 @@ const App: FC = () => {
   const [rowsToChange, setRowsToChange] = useState<TCharacteristics[] | null>(
     null
   );
-  //const [isValid, setIsValid] = useState<string[]>([]);
   const dispatch = useAppDispatch();
   const { currentTrain, validity } = useAppSelector(
     (state) => state.trainsReducer
@@ -51,11 +50,6 @@ const App: FC = () => {
     if (currentTrain) {
       const currentCharacteristics = currentTrain.characteristics;
       setRowsToChange(currentCharacteristics);
-      /*setIsValid(
-        currentTrain.characteristics.map(() => {
-          return "isValid";
-        })
-      );*/
     }
   }, [currentTrain]);
 
