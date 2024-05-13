@@ -2,15 +2,12 @@ import { ChangeEvent, FC, useEffect, useState } from "react";
 import styles from "./TableRow.module.scss";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { TFormRow, TTableRowProps } from "../../utils/types";
-import { editValidity } from "../../services/actions/trains";
+import { editValidity, setNewData } from "../../services/actions/trains";
 
-const TableRow: FC<TTableRowProps> = ({
-  item,
-  setRowsToChange,
-  i,
-  rowsToChange,
-}) => {
-  const { currentTrain } = useAppSelector((state) => state.trainsReducer);
+const TableRow: FC<TTableRowProps> = ({ item, i }) => {
+  const { currentTrain, newData } = useAppSelector(
+    (state) => state.trainsReducer
+  );
   const dispatch = useAppDispatch();
   // единый инпут для значений строки
   const [form, setValue] = useState<TFormRow>({
@@ -51,7 +48,7 @@ const TableRow: FC<TTableRowProps> = ({
         !/^\,/.test("" + form.force)
       ) {
         dispatch(editValidity({ number: i, status: "isValid" }));
-        const res = rowsToChange?.map((item, num) => {
+        const res = newData?.map((item, num) => {
           if (num === i) {
             return {
               engineAmperage: Number(form.engineAmperage),
@@ -61,7 +58,7 @@ const TableRow: FC<TTableRowProps> = ({
           } else return item;
         });
         if (res !== undefined) {
-          setRowsToChange(res);
+          dispatch(setNewData(res));
         }
       } else {
         dispatch(editValidity({ number: i, status: "isInvalid" }));

@@ -6,10 +6,12 @@ import {
   GET_TRAINS_SUCCESS,
   SET_VALIDITY,
   EDIT_VALIDITY,
+  SET_NEW_DATA,
+  EDIT_NEW_DATA,
 } from "../../utils/constants";
 import { AppDispatch } from "../hooks";
 import { api } from "../../utils/Api";
-import { TTrain, TValidationData } from "../../utils/types";
+import { TCharacteristics, TTrain, TValidationData } from "../../utils/types";
 
 export interface ISetCurrentTrain {
   readonly type: typeof SET_CURRENT_TRAIN;
@@ -32,6 +34,30 @@ export interface IEditValidity {
   readonly status: string;
 }
 
+export interface ISetNewData {
+  readonly type: typeof SET_NEW_DATA;
+  readonly items: TCharacteristics[];
+}
+
+export interface IEditNewData {
+  readonly type: typeof EDIT_NEW_DATA;
+  readonly number: number;
+  readonly item: TCharacteristics;
+}
+
+export interface IGetTrainsAction {
+  readonly type: typeof GET_TRAINS_ACTION;
+}
+
+export interface IGetTrainsFailedAction {
+  readonly type: typeof GET_TRAINS_FAILED;
+}
+
+export interface IGetTrainsSuccessAction {
+  readonly type: typeof GET_TRAINS_SUCCESS;
+  readonly items: ReadonlyArray<TTrain>;
+}
+
 export type TTrainsActions =
   | IGetTrainsAction
   | IGetTrainsFailedAction
@@ -39,7 +65,9 @@ export type TTrainsActions =
   | ISetCurrentTrain
   | IEditTrain
   | ISetValidity
-  | IEditValidity;
+  | IEditValidity
+  | ISetNewData
+  | IEditNewData;
 
 export function setCurrentTrain(data: TTrain) {
   return {
@@ -68,18 +96,21 @@ export const editValidity = (data: TValidationData): IEditValidity => ({
   status: data.status,
 });
 
-export interface IGetTrainsAction {
-  readonly type: typeof GET_TRAINS_ACTION;
+export function setNewData(data: TCharacteristics[]) {
+  return {
+    type: SET_NEW_DATA,
+    items: data,
+  };
 }
 
-export interface IGetTrainsFailedAction {
-  readonly type: typeof GET_TRAINS_FAILED;
-}
-
-export interface IGetTrainsSuccessAction {
-  readonly type: typeof GET_TRAINS_SUCCESS;
-  readonly items: ReadonlyArray<TTrain>;
-}
+export const editNewData = (
+  number: number,
+  data: TCharacteristics
+): IEditNewData => ({
+  type: EDIT_NEW_DATA,
+  number: number,
+  item: data,
+});
 
 export const getTrainsAction = (): IGetTrainsAction => ({
   type: GET_TRAINS_ACTION,

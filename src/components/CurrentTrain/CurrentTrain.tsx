@@ -7,11 +7,7 @@ import TableRow from "../TableRow/TableRow";
 
 // можно было бы реализовать таблицу библиотеками, но с таким функционалом без них все даже управляемее и проще
 
-const CurrentTrain: FC<TCurrentTrainProps> = ({
-  saveChanges,
-  setRowsToChange,
-  rowsToChange,
-}) => {
+const CurrentTrain: FC<TCurrentTrainProps> = ({ saveChanges }) => {
   const { currentTrain, validity } = useAppSelector(
     (state) => state.trainsReducer
   );
@@ -36,13 +32,7 @@ const CurrentTrain: FC<TCurrentTrainProps> = ({
           {currentTrain &&
             currentTrain.characteristics.map(
               (item: TCharacteristics, i: number) => (
-                <TableRow
-                  key={i}
-                  i={i}
-                  item={item}
-                  setRowsToChange={setRowsToChange}
-                  rowsToChange={rowsToChange}
-                />
+                <TableRow key={i} i={i} item={item} />
               )
             )}
         </tbody>

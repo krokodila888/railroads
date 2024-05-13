@@ -1,5 +1,3 @@
-import { Dispatch, SetStateAction } from "react";
-
 export type TCharacteristics = {
   speed: number;
   force: number;
@@ -15,8 +13,6 @@ export type TTrain = {
 export type TMainProps = {
   saveChanges: (item: TTrain | null) => void;
   handleTrainClick: (item: TTrain) => void;
-  setRowsToChange: Dispatch<SetStateAction<TCharacteristics[] | null>>;
-  rowsToChange: TCharacteristics[] | null;
 };
 
 export type TFormRow = {
@@ -27,9 +23,7 @@ export type TFormRow = {
 
 export type TTableRowProps = {
   item: TCharacteristics;
-  setRowsToChange: Dispatch<SetStateAction<TCharacteristics[] | null>>;
   i: number;
-  rowsToChange: TCharacteristics[] | null;
 };
 
 export type TTrainsTableProps = {
@@ -45,8 +39,6 @@ export type TButtonProps = {
 
 export type TCurrentTrainProps = {
   saveChanges: (item: TTrain | null) => void;
-  setRowsToChange: Dispatch<SetStateAction<TCharacteristics[] | null>>;
-  rowsToChange: TCharacteristics[] | null;
 };
 
 export type TValidationData = {

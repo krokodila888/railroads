@@ -4,21 +4,25 @@ import {
   GET_TRAINS_SUCCESS,
   SET_VALIDITY,
   EDIT_VALIDITY,
+  SET_NEW_DATA,
+  EDIT_NEW_DATA,
 } from "../../utils/constants";
 
-import { TTrain } from "../../utils/types";
+import { TCharacteristics, TTrain } from "../../utils/types";
 import type { TTrainsActions } from "../actions/trains";
 
 type TTrainsState = {
   trains: TTrain[] | null;
   currentTrain: TTrain | null;
   validity: string[] | null;
+  newData: TCharacteristics[] | null;
 };
 
 const initialState: TTrainsState = {
   trains: null,
   currentTrain: null,
   validity: null,
+  newData: null,
 };
 
 export const trainsReducer = (state = initialState, action: TTrainsActions) => {
@@ -61,6 +65,25 @@ export const trainsReducer = (state = initialState, action: TTrainsActions) => {
       return {
         ...state,
         validity: newValidity,
+      };
+    }
+    case SET_NEW_DATA: {
+      return {
+        ...state,
+        newData: action.items,
+      };
+    }
+    case EDIT_NEW_DATA: {
+      const newData1 = state.newData?.map(
+        (item: TCharacteristics, num: number) => {
+          if (num === action.number) {
+            return action.item;
+          } else return item;
+        }
+      );
+      return {
+        ...state,
+        newData: newData1,
       };
     }
     default: {
