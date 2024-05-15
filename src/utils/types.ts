@@ -10,11 +10,6 @@ export type TTrain = {
   characteristics: TCharacteristics[];
 };
 
-export type TMainProps = {
-  saveChanges: (item: TTrain | null) => void;
-  handleTrainClick: (item: TTrain) => void;
-};
-
 export type TFormRow = {
   engineAmperage: number | null;
   force: null | string | undefined;
@@ -26,19 +21,10 @@ export type TTableRowProps = {
   i: number;
 };
 
-export type TTrainsTableProps = {
-  handleTrainClick: (item: TTrain) => void;
-};
-
 export type TButtonProps = {
-  onClick: (item: TTrain | null) => void;
   text: string;
   disabled: boolean | undefined;
   item: TTrain | null;
-};
-
-export type TCurrentTrainProps = {
-  saveChanges: (item: TTrain | null) => void;
 };
 
 export type TValidationData = {

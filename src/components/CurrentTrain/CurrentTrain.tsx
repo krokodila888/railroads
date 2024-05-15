@@ -1,13 +1,13 @@
 import { FC } from "react";
 import styles from "./CurrentTrain.module.scss";
 import { useAppSelector } from "../../services/hooks";
-import { TCharacteristics, TCurrentTrainProps } from "../../utils/types";
+import { TCharacteristics } from "../../utils/types";
 import SubmitButton from "../ui/SubmitButton/SubmitButton";
 import TableRow from "../TableRow/TableRow";
 
 // можно было бы реализовать таблицу библиотеками, но с таким функционалом без них все даже управляемее и проще
 
-const CurrentTrain: FC<TCurrentTrainProps> = ({ saveChanges }) => {
+const CurrentTrain: FC = () => {
   const { currentTrain, validity } = useAppSelector(
     (state) => state.trainsReducer
   );
@@ -38,7 +38,6 @@ const CurrentTrain: FC<TCurrentTrainProps> = ({ saveChanges }) => {
         </tbody>
       </table>
       <SubmitButton
-        onClick={saveChanges}
         disabled={validity?.includes("isInvalid")}
         text="Отправить данные"
         item={currentTrain}

@@ -5,7 +5,6 @@ import styles from "./App.module.scss";
 import {
   getTrains,
   setCurrentTrain,
-  editTrain,
   setValidity,
   setNewData,
 } from "../../services/actions/trains";
@@ -16,9 +15,7 @@ import { TTrain } from "../../utils/types";
 const App: FC = () => {
   const [trains, setTrains] = useState<TTrain[] | null>(null);
   const dispatch = useAppDispatch();
-  const { currentTrain, validity, newData } = useAppSelector(
-    (state) => state.trainsReducer
-  );
+  const { currentTrain } = useAppSelector((state) => state.trainsReducer);
 
   // запрос с бекенда стартовых данных
   useEffect(() => {
@@ -52,51 +49,10 @@ const App: FC = () => {
     }
   }, [currentTrain]);
 
-  // по клику на кнопку сортированные данные выводятся в консоль (с учетом валидных пользовательских даннных в рамках развития идеи из брифа).
-  // в техзадании ничего не было про сохранение пользовательских данных, но пусть они уйдут в хранилище, а то зачем все это было
-  function saveChanges(item: TTrain | null) {
-    if (item && newData && !validity?.includes("isInvalid")) {
-      dispatch(
-        editTrain({
-          name: item.name,
-          description: item.description,
-          characteristics: newData,
-        })
-      );
-      const res = newData.map(function (obj) {
-        return obj.speed;
-      });
-      res.sort(function (a, b) {
-        return a - b;
-      });
-      console.log(res);
-    }
-  }
-
-  //данные о выбранном поезде отображаются по клику
-  function handleTrainClick(item: TTrain) {
-    dispatch(setCurrentTrain(item));
-    dispatch(
-      setValidity(
-        item.characteristics.map(() => {
-          return "isValid";
-        })
-      )
-    );
-  }
-
   return (
     <div className={styles.page}>
       <Routes>
-        <Route
-          path="*"
-          element={
-            <Main
-              saveChanges={saveChanges}
-              handleTrainClick={handleTrainClick}
-            />
-          }
-        ></Route>
+        <Route path="*" element={<Main />}></Route>
       </Routes>
     </div>
   );

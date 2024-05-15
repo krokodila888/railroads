@@ -1,12 +1,26 @@
 import { FC } from "react";
 import styles from "./TrainsTable.module.scss";
-import { useAppSelector } from "../../services/hooks";
-import { TTrain, TTrainsTableProps } from "../../utils/types";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import { TTrain } from "../../utils/types";
+import { setCurrentTrain, setValidity } from "../../services/actions/trains";
 
-const TrainsTable: FC<TTrainsTableProps> = ({ handleTrainClick }) => {
+const TrainsTable: FC = () => {
   const { trains, currentTrain } = useAppSelector(
     (state) => state.trainsReducer
   );
+  const dispatch = useAppDispatch();
+
+  //данные о выбранном поезде отображаются по клику
+  function handleTrainClick(item: TTrain) {
+    dispatch(setCurrentTrain(item));
+    dispatch(
+      setValidity(
+        item.characteristics.map(() => {
+          return "isValid";
+        })
+      )
+    );
+  }
 
   return (
     <>
